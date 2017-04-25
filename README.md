@@ -1,4 +1,7 @@
-# api documentation for  [grunt-complexity (v1.0.1)](https://github.com/vigetlabs/grunt-complexity.git)  [![npm package](https://img.shields.io/npm/v/npmdoc-grunt-complexity.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-grunt-complexity) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-grunt-complexity.svg)](https://travis-ci.org/npmdoc/node-npmdoc-grunt-complexity)
+# npmdoc-grunt-complexity
+
+#### basic api documentation for  [grunt-complexity (v1.0.1)](https://github.com/vigetlabs/grunt-complexity.git)  [![npm package](https://img.shields.io/npm/v/npmdoc-grunt-complexity.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-grunt-complexity) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-grunt-complexity.svg)](https://travis-ci.org/npmdoc/node-npmdoc-grunt-complexity)
+
 #### Evaluates code maintainability using Halstead and Cyclomatic metrics.
 
 [![NPM](https://nodei.co/npm/grunt-complexity.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/grunt-complexity)
@@ -73,7 +76,8 @@
     "scripts": {
         "test": "mocha"
     },
-    "version": "1.0.1"
+    "version": "1.0.1",
+    "bin": {}
 }
 ```
 
