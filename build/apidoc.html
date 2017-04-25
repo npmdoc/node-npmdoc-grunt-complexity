@@ -61,12 +61,168 @@
 
     <li class="apidocModuleLi"><a href="#apidoc.module.grunt-complexity">module grunt-complexity</a><ol>
 
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">grunt-complexity.</span>helpers</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.grunt-complexity.helpers">module grunt-complexity.helpers</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.grunt-complexity.helpers.fitWhitespace">
+            function <span class="apidocSignatureSpan">grunt-complexity.helpers.</span>fitWhitespace
+            <span class="apidocSignatureSpan">(maxLength, string)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.grunt-complexity.helpers.generateBar">
+            function <span class="apidocSignatureSpan">grunt-complexity.helpers.</span>generateBar
+            <span class="apidocSignatureSpan">(score, threshold)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.grunt-complexity.helpers.longestString">
+            function <span class="apidocSignatureSpan">grunt-complexity.helpers.</span>longestString
+            <span class="apidocSignatureSpan">(arrayOfStrings)</span>
+            </a>
+
+        </li>
+
     </ol></li>
 
 </ol></div>
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.grunt-complexity" id="apidoc.module.grunt-complexity">module grunt-complexity</a></h1>
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.grunt-complexity.helpers" id="apidoc.module.grunt-complexity.helpers">module grunt-complexity.helpers</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.grunt-complexity.helpers.fitWhitespace" id="apidoc.element.grunt-complexity.helpers.fitWhitespace">
+        function <span class="apidocSignatureSpan">grunt-complexity.helpers.</span>fitWhitespace
+        <span class="apidocSignatureSpan">(maxLength, string)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">fitWhitespace = function (maxLength, string) {
+	var remaining = maxLength - string.length;
+
+	// Prevent negative values from breaking the array
+	remaining = Math.max(0, remaining);
+
+	return string + Array(remaining + 3).join(&#x27; &#x27;);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	};
+
+	ConsoleReporter.prototype = {
+
+		maintainabilityMessage: function(filepath, valid, analysis) {
+			var symbol = valid ? &#x27;\u2713&#x27;.green : &#x27;\u2717&#x27;.red;
+			var bar = helpers.generateBar(analysis.maintainability, this.options.maintainability);
+			var label = helpers.<span class="apidocCodeKeywordSpan">fitWhitespace</span>(this.tableLength, filepath);
+
+			return symbol + &#x27; &#x27; + label + bar;
+		},
+
+		complexity: function(filepath, complexFunctions) {
+			complexFunctions.forEach(function(data) {
+				data.filepath = filepath;
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.grunt-complexity.helpers.generateBar" id="apidoc.element.grunt-complexity.helpers.generateBar">
+        function <span class="apidocSignatureSpan">grunt-complexity.helpers.</span>generateBar
+        <span class="apidocSignatureSpan">(score, threshold)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">generateBar = function (score, threshold) {
+	// 17.1 for 1/10 of 171, the maximum score
+	var magnitude = Math.floor(score / 17.1);
+	var bar = Array(magnitude).join(BLOCK) + &#x27; &#x27; + score.toPrecision(5);
+
+	// Out of 171 points, what % did it earn?
+	var rating = score / threshold;
+
+	return rating &#x3c; 1 ? bar.red : rating &#x3c; 1.2 ? bar.yellow : bar.green;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+		this.tableLength = helpers.longestString(filenames);
+	};
+
+	ConsoleReporter.prototype = {
+
+		maintainabilityMessage: function(filepath, valid, analysis) {
+			var symbol = valid ? &#x27;\u2713&#x27;.green : &#x27;\u2717&#x27;.red;
+			var bar = helpers.<span class="apidocCodeKeywordSpan">generateBar</span>(analysis.maintainability, this.options.maintainability
+);
+			var label = helpers.fitWhitespace(this.tableLength, filepath);
+
+			return symbol + &#x27; &#x27; + label + bar;
+		},
+
+		complexity: function(filepath, complexFunctions) {
+			complexFunctions.forEach(function(data) {
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.grunt-complexity.helpers.longestString" id="apidoc.element.grunt-complexity.helpers.longestString">
+        function <span class="apidocSignatureSpan">grunt-complexity.helpers.</span>longestString
+        <span class="apidocSignatureSpan">(arrayOfStrings)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">longestString = function (arrayOfStrings) {
+	var clone = Array.apply(null, arrayOfStrings);
+
+	var longestLength = clone.reduce(function(memo, a) {
+		return memo &#x3e; a.length ? memo : a.length;
+	}, 0);
+
+	return longestLength;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+describe(&#x22;Utility methods&#x22;, function() {
+
+	describe(&#x22;longestString&#x22;, function() {
+
+		it(&#x27;should return longest string length from array&#x27;, function() {
+			var arr = [&#x22;abc&#x22;, &#x22;asdff&#x22;, &#x22;defg&#x22;];
+			var longestLength = ConsoleHelpers.<span class="apidocCodeKeywordSpan">longestString</span>(arr);
+			expect(longestLength).to.equal(5);
+		});
+
+		it(&#x27;should return 0 for empty array&#x27;, function() {
+			var arr = [];
+			var longestLength = ConsoleHelpers.longestString(arr);
+			expect(longestLength).to.equal(0);
+...</pre></li>
+    </ul>
+
 
 </div>
 
